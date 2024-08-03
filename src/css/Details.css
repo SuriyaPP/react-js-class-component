@@ -1,0 +1,71 @@
+table {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
+  }
+  
+  table caption {
+    font-size: 1.5em;
+    margin: .5em 0 .75em;
+  }
+  
+  table tr {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: .35em;
+  }
+  
+  table th,
+  table td {
+    padding: .625em;
+    text-align: center;
+  }
+  
+  table th {
+    font-size: .85em;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  
+  .delete {
+    padding: 5px;
+    cursor: pointer;
+    background-color: red;
+    color: white;
+}
+
+.update{
+  padding: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+  background: blue;
+  color: white;
+}
+  
+h1 {
+    cursor: pointer;
+}
+  
+#isComponent{
+  display: none;
+  text-align: center;
+  position: absolute;
+  top: 50px;
+  right: 0px;
+  left: 0px;
+}  
+  
+#isUserDetails{
+  display: block;
+}  
+  
+  
+  
+  
+  
+  
+  
+  

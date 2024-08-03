@@ -1,0 +1,36 @@
+
+
+input{
+    padding: 10px;
+    width: 300px;
+    margin-bottom: 10px;
+    font-family: monospace;
+}
+
+textarea{
+    padding: 10px;
+    width: 300px;
+}
+
+form{
+    text-align: center;
+    position: absolute;
+    top: 50px;
+    right: 0px;
+    left: 0px;
+}
+
+.submit_btn{
+    padding: 8px;
+    width: 320px;
+    cursor: pointer;
+    font-family: monospace;
+}
+
+/* .error{
+    background-color: red;
+} */
+/* .success {
+    background-color: green;
+    color: white;
+} */

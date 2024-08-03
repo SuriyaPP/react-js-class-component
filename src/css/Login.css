@@ -1,0 +1,19 @@
+.increment-btn{
+    padding: 10px;
+    background-color: darkgreen;
+    color: white;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.decrement-btn{
+    padding: 10px;
+    background-color: darkred;
+    color: white;
+    cursor: pointer;
+    margin: 5px;
+}
+
+div{
+    text-align: center;
+}
