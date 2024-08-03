@@ -1,10 +1,9 @@
 import React from "react";
-import '../css/UserLogin.css'
+import '../css/UserLogin.css';
 import axios from "axios";
 import Swal from "sweetalert2";
 
 class UserLogin extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -14,23 +13,47 @@ class UserLogin extends React.Component {
                 age: 0,
                 mobileNumber: '',
                 address: ''
+            },
+            errors: {
+                firstName: '',
+                mobileNumber: '',
             }
         };
     }
 
-
     handlechange = (e) => {
         const { name, value } = e.target;
-        this.setState(data => ({
-            user: { ...data.user , [name] : value }
+        let errors = this.state.errors;
+
+        switch (name) {
+            case 'firstName':
+                errors.firstName = 
+                    value.length < 5 
+                        ? 'First name must be at least 5 characters long!'
+                        : '';
+                break;
+            case 'mobileNumber':
+                errors.mobileNumber = 
+                    value.length < 10  || value.length > 10
+                        ? 'please Enter Your Mobile number!'
+                        : '';
+                break;
+            default:
+                break;
+        }
+
+        this.setState(prevState => ({
+            user: { ...prevState.user, [name]: value },
+            errors: errors
         }));
     }
 
     submitDetails = (e) => {
         document.getElementById('submit_btn').disabled = true;
+        document.getElementById('submit_btn').style.cursor = 'no-drop';
         e.preventDefault();
         
-         axios.post('http://localhost:8080/user/insert', this.state.user)
+        axios.post('http://localhost:8080/user/insert', this.state.user)
             .then(response => {
                 console.log(response.data);
                 if (response.data) {
@@ -50,9 +73,12 @@ class UserLogin extends React.Component {
                     });
                 }
                 document.getElementById('submit_btn').disabled = false;
+                document.getElementById('submit_btn').style.cursor = 'pointer';
             })
             .catch(error => {
                 console.error('Error submitting data:', error.message);
+                document.getElementById('submit_btn').disabled = false;
+                document.getElementById('submit_btn').style.cursor = 'pointer';
                 Swal.fire({
                     title: "Error!",
                     text: "Something went wrong.",
@@ -60,17 +86,16 @@ class UserLogin extends React.Component {
                 });
             });
     }
-    
 
     render() {
-        const { user } = this.state;
+        const { user, errors } = this.state;
         return (
             <div>
                 <div className="login">
                     <form onSubmit={this.submitDetails}>
                         <div>
                             <input 
-                                className={user.firstName ? 'success' : 'error'} 
+                                className={errors.firstName ? 'error' : 'success'} 
                                 type="text" 
                                 name="firstName" 
                                 value={user.firstName} 
@@ -78,10 +103,11 @@ class UserLogin extends React.Component {
                                 placeholder="Enter your first name"  
                                 required
                             />
+                            {errors.firstName && <span className="error-message">{errors.firstName}</span>}
                         </div>
                         <div>
                             <input 
-                             className={user.lastName ? 'success' : 'error'} 
+                                className="success" 
                                 type="text" 
                                 name="lastName" 
                                 value={user.lastName} 
@@ -92,7 +118,7 @@ class UserLogin extends React.Component {
                         </div>
                         <div>
                             <input 
-                            className={user.age ? 'success' : 'error'} 
+                                className="success" 
                                 type="number" 
                                 name="age" 
                                 value={user.age} 
@@ -103,7 +129,7 @@ class UserLogin extends React.Component {
                         </div>
                         <div>
                             <input 
-                             className={user.mobileNumber ? 'success' : 'error'} 
+                                className={errors.mobileNumber ? 'error' : 'success'} 
                                 type="number" 
                                 name="mobileNumber" 
                                 value={user.mobileNumber} 
@@ -111,10 +137,11 @@ class UserLogin extends React.Component {
                                 placeholder="Enter your mobile no" 
                                 required
                             />
+                            {errors.mobileNumber && <span className="error-message">{errors.mobileNumber}</span>}
                         </div>
                         <div>
                             <textarea 
-                            className={user.address ? 'success' : 'error'} 
+                                className="success" 
                                 name="address" 
                                 value={user.address} 
                                 onChange={this.handlechange} 
@@ -123,12 +150,12 @@ class UserLogin extends React.Component {
                             />
                         </div>
                         <div>
-                            <input className="submit_btn" type="submit" id="submit_btn" ></input>
+                            <input className="submit_btn" type="submit" id="submit_btn" value="Submit" />
                         </div>
                     </form>
                 </div>         
             </div>
-        )
+        );
     }
 }
 
